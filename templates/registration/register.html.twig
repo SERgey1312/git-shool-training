@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}GitSchool {{ 'signUp' }}{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/register.css') }}">
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+
+{% endblock %}
+{% block content %}
+    {% for flashError in app.flashes('verify_email_error') %}
+        #<div class="alert alert-danger" role="alert">{{ flashError }}</div>
+    {% endfor %}
+
+    {{ form_start(registrationForm) }}
+    <h1 class="h3 mb-3 font-weight-normal">{{ 'Join us'}}!</h1>
+    {{ form_row(registrationForm.name, {'attr':
+        {
+            'placeholder': 'Username' ,
+            'data-toggle': 'popover',
+            'data-content': '4-15 letters and numbers. Special symbols are not allowed.'|trans
+        }}) }}
+    {{ form_row(registrationForm.email, {'attr':
+        {
+            'placeholder': 'Email',
+            'data-toggle': 'popover',
+            'data-content': 'You will recieve confirmation Email. You have to respond to it before you could access our services.'|trans
+        }
+    }) }}
+    {{ form_row(registrationForm.phone, {'attr':
+        {
+            'placeholder': 'Phone',
+            'data-toggle': 'popover',
+                    }
+    }) }}
+    {{ form_row(registrationForm.password.first, {'attr':
+        {
+            'placeholder': 'Password',
+            'data-toggle': 'popover',
+            'data-content': '6-25 letters and numbers. Passwords must match.',
+
+        }}) }}
+    {{ form_row(registrationForm.password.second, {'attr':
+        {
+            'placeholder': 'Confirm password',
+        }}) }}
+    {{ form_row(registrationForm.submit) }}
+
+    <hr>
+
+    <h1 class="h6 mb-3 font-weight-normal">{{ 'Alredy have an account' }}?</h1>
+
+    <a href="{{ path('app_login') }}" class="button">{{ 'Sign in' }}</a>
+    {{ form_end(registrationForm) }}
+    <script src="{{ asset('js/register.js') }}" language='javascript' type='text/javascript'></script>
+    <script src="{{ asset('js/popover.js') }}" language='javascript' type='text/javascript'></script>
+{% endblock %}

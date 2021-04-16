@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+{% block title %}GitSchool {{ 'Login'}}{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/login.css') }}">
+{% endblock %}
+{% block content %}
+    <div class="container">
+        {% if not app.user %}
+            <form method="post" class="form-signin">
+                <h1 class="h3 mb-3 font-weight-normal">{{ 'Sign in' }}</h1>
+
+                {% if error %}
+                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
+
+                <input placeholder={{ 'Email'}} type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
+                <input placeholder={{ 'Password'}} type="password" name="password" id="inputPassword" class="form-control" required>
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                <button class="btn btn-lg btn-primary" type="submit">{{ 'Sign in'|trans }}</button>
+                <br>
+                <hr>
+                <p>
+                    {# <a href="{{ path('app_forgot_password_request') }}" class="button">{{ 'Reset password'|trans }}</a> #}
+                    <br>
+                    {{ 'New around here?'|trans }}
+                    <a href="{{ path('app_register') }}" class="button">{{ 'Sign up'}}</a>
+                </p>
+
+            </form>
+        {% elseif app.user %}
+            <div class="mb-3">
+                {{ 'You are logged as ' }} {{ app.user.username }} <a href="{{ path('app_logout') }}">{{ 'Logout'}}</a>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

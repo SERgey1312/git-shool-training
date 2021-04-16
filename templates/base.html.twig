@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %}GitSchool{% endblock %}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/header.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/footer.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/css/select2.min.css" rel="stylesheet" />
+    {% block stylesheets %}
+
+    {% endblock %}
+</head>
+<body class="text-center">
+{% block javascripts %}
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/js/select2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+{% endblock %}
+{% block header %}
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand">GitSchool:Training</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <ul class="navbar-nav mr-auto nav-link-home" >
+                    <li class="nav-item">
+                        <a class="nav-item nav-link" href="/">{{ 'Главная' }} <span class="sr-only">(current)</span></a>
+                    </li>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {{ 'Administration'}}
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="{{ path('users_table') }}">Users</a>
+                                {#<a class="dropdown-item" href="{{ path('quiz_page') }}">Quizzes</a>#}
+                                {#<a class="dropdown-item" href="{{ path('question_page') }}">Questions</a>#}
+                            </div>
+                        </li>
+                    {% endif %}
+                </ul>
+                {% if app.request.attributes.get('_route') == 'homepage' %}
+                    <ul class="navbar-nav mr-auto all_courses_btn_container">
+                        <li class="nav-item">
+                            <a href="#" class="all_courses_btn" id="courses_dropdown_btn">Наши курсы</a>
+                        </li>
+                    </ul>
+                {% endif %}
+
+                <span class="navbar-text">
+                                <ul class="navbar-nav mr-auto">
+
+                                    {% if app.user %}
+                                        <li class="nav-item">
+                                            <a class="nav-item nav-link">{{ app.user.username }}</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-item nav-link" href="{{ path('app_logout') }}">{{ 'Выход' }}</a>
+                                        </li>
+                                    {% else %}
+                                        <li class="nav-item">
+                                            <a class="nav-item nav-link " href="{{ path('app_login') }}">{{ 'Вход' }}</a>
+                                        <li class="nav-item">
+                                            <a class="nav-item nav-link " href="{{ path('app_register') }}">{{ 'Регистрация' }}</a>
+                                        </li>
+                                    {% endif %}
+                                </ul>
+                            </span>
+            </div>
+        </nav>
+    </header>
+{% endblock %}
+<div class="container">
+    {% block content %}
+    {% endblock %}
+</div>
+{% if app.request.attributes.get('_route') == 'homepage' %}
+    {% block feedbackform%}
+    {% endblock %}
+{% endif %}
+{% block footer %}
+    <footer class="footer">
+        <div class="container">
+                    <span class="text-muted">
+                        {{ 'Дипломный проект - ' }} <a class="" href="/">GitSchool:Training</a>
+                    </span>
+        </div>
+    </footer>
+{% endblock %}
+<script src="{{ asset('js/coursesDropdown.js') }}" ></script>
+</body>
+</html>

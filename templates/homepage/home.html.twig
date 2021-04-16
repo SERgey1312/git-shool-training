@@ -1,0 +1,181 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}GitSchool Homepage{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/home.css') }}">
+{% endblock %}
+{% block header %}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+    <div class="courses_dropdown" id="courses_dropdown">
+        <div class="hr_container">
+            <hr class="hr_container__line">
+            <div class="hr_container__block">
+                <p class="hr_container__title">
+                    Существующие видео-курсы:
+                </p>
+                <div class="hr_container__courses">
+                    <div>
+                        <a href="#" class="course_btn" id="">HTML</a>
+                    </div>
+                    <div>
+                        <a href="#" class="course_btn" id="">CSS</a>
+                    </div>
+                    <div>
+                        <a href="#" class="course_btn" id="">Tilda</a>
+                    </div>
+                    <div>
+                        <a href="#" class="course_btn" id="">Figma</a>
+                    </div>
+                    <div>
+                        <a href="#" class="course_btn" id="">JavaScript</a>
+                    </div>
+                    <div>
+                        <a href="#" class="course_btn" id="">PHP</a>
+                    </div>
+                    <div>
+                        <a href="#" class="course_btn" id="">React JS</a>
+                    </div>
+                    <div>
+                        <a href="#" class="course_btn" id="">Angular</a>
+                    </div>
+                    <div>
+                        <a href="#" class="course_btn" id="">WordPress</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="main_title" >
+        <h1 class="main_title_text">Онлайн-школа востребованных IT-профессий</h1>
+    </div>
+    <div class="courses_section">
+        <div class="courses_section__container">
+            <div class="courses_section__titleBlock">
+                <p class="courses_section__title">
+                    Наши курсы:
+                </p>
+            </div>
+            <div class="courses_section__coursesBlock">
+                <div class="courses_section__courses">
+                    <div>
+                        <a href="#" class="course_btn" id="">HTML</a>
+                    </div>
+                    <div>
+                        <a href="#" class="course_btn" id="">CSS</a>
+                    </div>
+                    <div>
+                        <a href="#" class="course_btn" id="">Tilda</a>
+                    </div>
+                    <div>
+                        <a href="#" class="course_btn" id="">Figma</a>
+                    </div>
+                    <div>
+                        <a href="#" class="course_btn" id="">JavaScript</a>
+                    </div>
+                    <div>
+                        <a href="#" class="course_btn" id="">PHP</a>
+                    </div>
+                    <div>
+                        <a href="#" class="course_btn" id="">React JS</a>
+                    </div>
+                    <div>
+                        <a href="#" class="course_btn" id="">Angular</a>
+                    </div>
+                    <div>
+                        <a href="#" class="course_btn" id="">WordPress</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="training_description_section">
+        <div class="training_description_section__container" style="display: flex; flex-direction: column;">
+            <div class="training_description_section__titleBlock" style="width: 100%">
+                <p class="training_description_section__title" style="text-align: left; font-size: 40px; color: black; font-weight: bold; width: 40%;">
+                    Системный подход к образованию
+                </p>
+            </div>
+            <div class="training_description_section__items">
+                <div class="training_description_section__item video_item">
+                    <div class="training_description_section__circle">
+                        <div class="img_container_video">
+                            <img src="{{ asset('img/video.png') }}" alt="video" class="video_img">
+                        </div>
+                    </div>
+                    <p class="training_description_section__text">
+                        Видеоматериалы
+                    </p>
+                    <p class="video_item_text">
+                        Смотреть видеоуроки можно в любое время, доступ к учебным материалам предоставляется бессрочно.
+                    </p>
+                </div>
+                <div class="training_description_section__item pc_item">
+                    <div class="training_description_section__circle">
+                        <div class="img_container_video">
+                            <img src="{{ asset('img/pc.png') }}" alt="video" class="video_img">
+                        </div>
+                    </div>
+                    <p class="training_description_section__text">
+                        Практика
+                    </p>
+                    <p class="pc_item_text">
+                        Новый материал закрепляется с помощью практического задания, которое будет проверено очень быстро.
+                    </p>
+                </div>
+                <div class="training_description_section__item message_item">
+                    <div class="training_description_section__circle">
+                        <div class="img_container_video">
+                            <img src="{{ asset('img/imessage.png') }}" alt="video" class="video_img">
+                        </div>
+                    </div>
+                    <p class="training_description_section__text">
+                        Консультации
+                    </p>
+                    <p class="message_item_text">
+                        Живое общение с преподавателями и другими студентами в мессенджерах для обсуждения заданий и обмена опытом.
+                    </p>
+                </div>
+                <div class="training_description_section__item diploma_item">
+                    <div class="training_description_section__circle diploma_circle">
+                        <div class="img_container_video">
+                            <img src="{{ asset('img/diploma.png') }}" alt="video" class="video_img">
+                        </div>
+                    </div>
+                    <p class="training_description_section__text">
+                        Дипломные проекты
+                    </p>
+                    <p class="diploma_item_text">
+                        Итоговая работа по заданию приближенная к реальным проектам позволяет применить свои навыки для решения существующих бизнес-задач.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block feedbackform%}
+    <div class="feedback_container">
+        <div class="feedback_container_in">
+            <div class="feedback_container__text">
+                <div class="feedback_container__textContainer">
+                    <p class="feedback_container__p">
+                        Поможем в выборе!
+                    </p>
+                </div>
+                <p class="feedback_container__p2">
+                    Если у вас есть вопросы о формате или вы не знаете что выбрать, оставьте свой номер: мы позвоним, чтобы ответить на все ваши вопросы.
+                </p>
+            </div>
+            <div class="feedback_container__form">
+                <div class="feedback_container__formContainer">
+                    {{ form_start(feedback_form) }}
+                    {{ form_widget(feedback_form) }}
+                    {{ form_end(feedback_form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
