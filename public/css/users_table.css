@@ -1,0 +1,54 @@
+body{
+    background-color: #f5f5f5;
+}
+#id-col, #status-col, #role-col, #action-col{
+    width: 10%;
+}
+#email-col{
+    width: 35%;
+}
+#name-col{
+    width: 25%;
+}
+.filters form{
+    display: grid;
+    grid-template-columns: 10% 30% 20% 30% 10%;
+}
+.filters button, .filters input, .filters select{
+    border-radius: 0;
+}
+.filters input{
+    margin-right: -1px;
+}
+.promotion form{
+    display: grid;
+    grid-template-columns: 35% 65%;
+}
+.promotion input{
+    /*border-radius: 0.25rem 0 0 0.25rem;*/
+    border-radius: 0;
+}
+.promotion button{
+    /*border-radius: 0 0.25rem 0.25rem 0;*/
+    border-radius: 0;
+    margin-top: 0;
+}
+.user-table{
+    text-align: right;
+}
+.user-table thead img{
+    margin-right: 10px;
+}
+.user-table td button{
+    padding: 0 5px;
+}
+.user-table tbody tr th{
+    padding-left: 50px;
+}
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+thead th:hover{
+    background-color: #efefef;
+}
+

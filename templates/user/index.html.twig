@@ -1,20 +1,135 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello UserController!{% endblock %}
+{% block title %}GitSchool Users{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/users_table.css') }}">
+{% endblock %}
+{% block content %}
+    {% set users = pagination %}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
 
-{% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+                <div class="row" style="width: 100%;">
+                    <div class="col-8 filters" style="margin: 10px 0 10px 38%;">
+                        <form class="mx-4 my-2"  method="get">
+                            <input placeholder="ID" type="text" name="id" class="form-control">
+                            <input placeholder={{ 'Email' }} type="text" name="email" class="form-control">
+                            <input placeholder={{ 'Name' }} type="text" name="name" class="form-control">
+                            <input placeholder={{ 'Phone' }} type="text" name="phone" class="form-control">
+                            <button class="btn btn-primary" type="submit">{{ 'Filter' }}</button>
+                        </form>
+                    </div>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+                </div>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'D:/!!!diploma/my_diploma/src/Controller/UserController.php'|file_link(0) }}">src/Controller/UserController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'D:/!!!diploma/my_diploma/templates/user/index.html.twig'|file_link(0) }}">templates/user/index.html.twig</a></code></li>
-    </ul>
-</div>
+                <table class="table user-table">
+                    <thead>
+                    <tr>
+                        <th onclick="numberTableSort(this,true)" id="id-col" scope="col">
+                            <img class="rounded float-left" src="{{ asset('img/sortable.png') }}" alt="">
+                            {{ knp_pagination_sortable(users, 'ID', 'user.id') }}
+
+                        </th>
+                        <th id="name-col" scope="col">{{ knp_pagination_sortable(users, 'Имя', 'user.name') }}</th>
+                        <th id="email-col" scope="col">{{ knp_pagination_sortable(users, 'Email', 'user.email') }}</th>
+                        <th id="phone-col" scope="col">{{ knp_pagination_sortable(users, 'Телефон', 'user.phone') }}</th>
+                        <th id="role-col" scope="col">{{ knp_pagination_sortable(users, 'Роли', 'user.roles') }}</th>
+                        <th id="status-col" scope="col">{{ knp_pagination_sortable(users, 'Статус', 'user.is_active') }}</th>
+                        <th  id="action-col" scope="col"></th>
+                    </tr>
+                    </thead>
+                    {% if users|length > 0 %}
+                    <tbody>
+                    {% for user in users %}
+                        <tr>
+                            <th scope="row">{{ user.id }}</th>
+                            <td>{{ user.name }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>{{ user.phone }}</td>
+                            <td>
+                                {% for role in user.roles %}
+                                    {% if role == 'ROLE_USER'  %}
+                                        <span class="badge badge-dark">{{ 'User' }}</span>
+                                    {% else %}
+                                        <span class="badge badge-dark">{{ 'Admin' }}</span>
+                                    {% endif %}
+                                {% endfor %}
+                            </td>
+                            <td class="user{{ user.id }}">
+                                {% if user.isActive %}
+                                    <span class="badge badge-primary">{{ 'Active' }}</span>
+                                {% else %}
+                                    <span class="badge badge-danger">{{ 'Block' }}</span>
+                                {% endif %}
+                            </td>
+                            <td class="user{{ user.id }}">
+                                <button type="button" onclick="switchStatus(this)" name="{{ user.id }}" class="btn btn-sm
+                                {% if user.isActive %} btn-outline-danger">
+                                    <img src="{{ asset('img/block_user.png') }}" alt={{ 'Заблокировать' }}>
+                                    {% else %} btn-outline-primary">
+                                        <img src="{{ asset('img/unlock_user.png') }}" alt={{ 'Разблокировать' }}>
+                                    {% endif %}
+                                </button>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                    {% else %}
+                        <div class="alert alert-primary" role="alert">
+                            <h1 class="h3 mb-3 font-weight-normal">{{ 'Совпадений не найдено!' }}</h1>
+                            {{ 'Выберите дургие опции фильтрации'}}
+                        </div>
+                    {% endif %}
+                </table>
+            </div>
+        </div>
+        {{ knp_pagination_render(pagination) }}
+        <div>
+            <div class="col-4 promotion">
+                <form class="mx-4 my-2" action="{{ path('promote') }}" method="post">
+                    <input placeholder="User ID" type="text" name="id" pattern="[0-9]{0,6}" class="form-control">
+                    <button class="btn btn-primary" type="submit">{{ 'Сделать админом' }}</button>
+                </form>
+            </div>
+
+            <div class="col-4 promotion">
+                <form class="mx-4 my-2" action="{{ path('downgrade') }}" method="post">
+                    <input placeholder="Admin ID" type="text" name="id" pattern="[0-9]{0,6}" class="form-control">
+                    <button class="btn btn-primary" type="submit">{{ 'Разжаловать админа' }}</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+    <script>
+        function switchStatus(button){
+            $.ajax({
+                type: "POST",
+                url: "{{ path('status') }}",
+                data: {
+                    user_id: button.name,
+                },
+                success: function(response){
+                    let cells = document.getElementsByClassName('user'+response['user_id']);
+                    if(response['error']){
+                        cells[1].innerHTML = "Error";
+                    } else {
+                        if(response['status']){
+                            cells[0].innerHTML = "<span class=\"badge badge-primary\">{{ 'Active'|trans }}</span>";
+                            button.classList.remove('btn-outline-primary');
+                            button.classList.add('btn-outline-danger');
+                            button.innerHTML = "<img src=\'{{ asset('img/block_user.png') }}\'>";
+                        }
+                        else {
+                            cells[0].innerHTML = "<span class=\"badge badge-danger\">{{ 'Blocked'|trans }}</span>";
+                            button.classList.remove('btn-outline-danger');
+                            button.classList.add('btn-outline-primary');
+                            button.innerHTML = "<img src=\'{{ asset('img/unlock_user.png') }}\'>";
+                        }
+                    }
+                }
+            });
+        }
+    </script>
 {% endblock %}
