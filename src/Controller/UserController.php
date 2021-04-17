@@ -94,4 +94,19 @@ class UserController extends AbstractController
         }
         return $this->redirectToRoute('users_table',['error'=>$error]);
     }
+
+    /**
+     * @Route ("/admin/users/delete", name="delete")
+     */
+    public function deleteById(UserRepository $userRepository, Request $request, TableOfUsersManager $usersTable, EntityManagerInterface $em) :Response
+    {
+        $error = '';
+        $user = $userRepository->find($request->request->get('user_id'));
+        if(isset($user))
+        {
+            $em->remove($user);
+            $em->flush();
+        }
+        return $this->redirectToRoute('users_table',['error'=>$error]);
+    }
 }
