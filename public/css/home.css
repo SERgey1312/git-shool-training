@@ -217,3 +217,28 @@
     margin-bottom: 110px;
     color: black;
 }
+
+.all_courses{
+    display: inline-block;
+    text-decoration: none;
+    padding: .6em 1.5em;
+    border: 1px solid black;
+    outline: none;
+    background: #FFFFFF no-repeat;
+    background-size: 1px 100%, 1px 100%, auto auto;
+    overflow: hidden;
+    transition: .8s;
+    color: blue;
+    margin: 0.7em 2em;
+}
+
+.all_courses:hover{
+    background-color: blue;
+    color: #FFFFFF;
+    text-decoration: none;
+    border: 1px solid blue;
+}
+
+.all_courses:active:after{
+    transition: .3s;
+}

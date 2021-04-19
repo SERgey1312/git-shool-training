@@ -15,10 +15,10 @@
     {% endfor %}
 
     {{ form_start(registrationForm) }}
-    <h1 class="h3 mb-3 font-weight-normal">{{ 'Join us'}}!</h1>
+    <h1 class="h3 mb-3 font-weight-normal">{{ 'Регистрация'}}</h1>
     {{ form_row(registrationForm.name, {'attr':
         {
-            'placeholder': 'Username' ,
+            'placeholder': 'Ваше имя' ,
             'data-toggle': 'popover',
             'data-content': '4-15 letters and numbers. Special symbols are not allowed.'|trans
         }}) }}
@@ -31,28 +31,28 @@
     }) }}
     {{ form_row(registrationForm.phone, {'attr':
         {
-            'placeholder': 'Phone',
+            'placeholder': 'Телефон',
             'data-toggle': 'popover',
                     }
     }) }}
     {{ form_row(registrationForm.password.first, {'attr':
         {
-            'placeholder': 'Password',
+            'placeholder': 'Пароль',
             'data-toggle': 'popover',
             'data-content': '6-25 letters and numbers. Passwords must match.',
 
         }}) }}
     {{ form_row(registrationForm.password.second, {'attr':
         {
-            'placeholder': 'Confirm password',
+            'placeholder': 'Повторите пароль',
         }}) }}
     {{ form_row(registrationForm.submit) }}
 
     <hr>
 
-    <h1 class="h6 mb-3 font-weight-normal">{{ 'Alredy have an account' }}?</h1>
+    <h1 class="h6 mb-3 font-weight-normal">{{ 'Уже есть аккаунт' }}?</h1>
 
-    <a href="{{ path('app_login') }}" class="button">{{ 'Sign in' }}</a>
+    <a href="{{ path('app_login') }}" class="button">{{ 'Войти' }}</a>
     {{ form_end(registrationForm) }}
     <script src="{{ asset('js/register.js') }}" language='javascript' type='text/javascript'></script>
     <script src="{{ asset('js/popover.js') }}" language='javascript' type='text/javascript'></script>

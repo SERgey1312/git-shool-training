@@ -32,6 +32,11 @@
                     <li class="nav-item">
                         <a class="nav-item nav-link" href="/">{{ 'Главная' }} <span class="sr-only">(current)</span></a>
                     </li>
+                    {% if is_granted('ROLE_USER') %}
+                    <li class="nav-item">
+                        <a class="nav-item nav-link" href="{{ path('personal_area') }}">{{ 'Личный кабинет' }} <span class="sr-only">(current)</span></a>
+                    </li>
+                    {% endif %}
                     {% if is_granted('ROLE_ADMIN') %}
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

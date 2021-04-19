@@ -1,0 +1,85 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}GitSchool:Training{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/personalArea.css') }}">
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <h1>Личный кабинет</h1>
+        <form action="{{ path('user_update') }}" method="post" class="mx-4 my-2">
+            <div class="form_container" style="display: flex; flex-direction: row; flex-wrap: nowrap;">
+                <div class="left_part" style="text-align:left; width: 40%; margin: 0 auto; display: flex; flex-direction: column; ">
+                    <input type="hidden" name="user_id" value="{{ user.id }}">
+                    <label>Email: </label>
+                    <input type="email" class="form-control" name="user_email" value="{{ user.email }}">
+                    <label>Имя: </label>
+                    <input type="text" class="form-control" name="user_name" value="{{ user.name }}">
+                    <label>Пол: </label>
+                    <select class="form-control" name="user_gender">
+                        <option>Не выбрано</option>
+                        <option {% if user.gender == 'Мужской' %} selected {% endif %}>Мужской</option>
+                        <option {% if user.gender == 'Женский' %} selected {% endif %}>Женский</option>
+                    </select>
+                    <label>Дата рождения: </label>
+                    <input type="date" class="form-control" name="user_birthDate" value="{{ user.dob|date('Y-m-d') }}">
+                </div>
+                <div class="right_part" style="text-align:left; width: 40%; margin: 0 auto; display: flex; flex-direction: column;">
+                    <label>Телефон: </label>
+                    <input class="form-control" type="text" name="user_phone" value="{{ user.phone }}">
+                    <label>Страна: </label>
+                    <select class="form-control" name="user_country">
+                        <option>Не выбрано</option>
+                        <option {% if user.country == 'Беларусь' %} selected {% endif %}>Беларусь</option>
+                        <option {% if user.country == 'Россия' %} selected {% endif %}>Россия</option>
+                        <option {% if user.country == 'Украина' %} selected {% endif %}>Украина</option>
+                        <option {% if user.country == 'Казахстан' %} selected {% endif %}>Казахстан</option>
+                        <option {% if user.country == 'Латвия' %} selected {% endif %}>Латвия</option>
+                        <option {% if user.country == 'Польша' %} selected {% endif %}>Польша</option>
+                        <option {% if user.country == 'Азербайджан' %} selected {% endif %}>Азербайджан</option>
+                        <option {% if user.country == 'Армения' %} selected {% endif %}>Армения</option>
+                        <option {% if user.country == 'Таджикистан' %} selected {% endif %}>Таджикистан</option>
+                        <option {% if user.country == 'Молдова' %} selected {% endif %}>Молдова</option>
+                        <option {% if user.country == 'Туркменистан' %} selected {% endif %}>Туркменистан</option>
+                        <option {% if user.country == 'Узбекистан' %} selected {% endif %}>Узбекистан</option>
+                    </select>
+                    <label>Город: </label>
+                    <input class="form-control" type="text" name="user_city" value="{{ user.city }}">
+                </div>
+            </div>
+            <button class="btn btn-primary" type="submit" onclick="save_user()">Сохранить</button>
+        </form>
+        <h2>Мои подписки:</h2>
+        <h2>Мои курсы:</h2>
+    </div>
+    <script>
+        function save_user(){
+            let user_id = document.getElementsByName('user_id')[0];
+            let user_email = document.getElementsByName('user_email')[0];
+            let user_name = document.getElementsByName('user_name')[0];
+            let user_gender = document.getElementsByName('user_gender')[0];
+            let user_birthDate = document.getElementsByName('user_birthDate')[0];
+            let user_phone = document.getElementsByName('user_phone')[0];
+            let user_country = document.getElementsByName('user_country')[0];
+            let user_city = document.getElementsByName('user_city')[0];
+
+            $.ajax({
+                type: "POST",
+                url: "{{ path('user_update') }}",
+                data: {
+                    user_id: user_id,
+                    user_email: user_email,
+                    user_name: user_name,
+                    user_gender: user_gender,
+                    user_birthDate: user_birthDate,
+                    user_phone: user_phone,
+                    user_country: user_country,
+                    user_city: user_city,
+                },
+                success: function(response){
+
+                }
+            });
+        }
+    </script>
+{% endblock %}
