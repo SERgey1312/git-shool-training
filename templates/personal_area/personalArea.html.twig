@@ -8,8 +8,8 @@
     <div class="container">
         <h1>Личный кабинет</h1>
         <form action="{{ path('user_update') }}" method="post" class="mx-4 my-2">
-            <div class="form_container" style="display: flex; flex-direction: row; flex-wrap: nowrap;">
-                <div class="left_part" style="text-align:left; width: 40%; margin: 0 auto; display: flex; flex-direction: column; ">
+            <div class="form_container">
+                <div class="left_part">
                     <input type="hidden" name="user_id" value="{{ user.id }}">
                     <label>Email: </label>
                     <input type="email" class="form-control" name="user_email" value="{{ user.email }}">
@@ -24,7 +24,7 @@
                     <label>Дата рождения: </label>
                     <input type="date" class="form-control" name="user_birthDate" value="{{ user.dob|date('Y-m-d') }}">
                 </div>
-                <div class="right_part" style="text-align:left; width: 40%; margin: 0 auto; display: flex; flex-direction: column;">
+                <div class="right_part">
                     <label>Телефон: </label>
                     <input class="form-control" type="text" name="user_phone" value="{{ user.phone }}">
                     <label>Страна: </label>
@@ -51,35 +51,10 @@
         </form>
         <h2>Мои подписки:</h2>
         <h2>Мои курсы:</h2>
+        {% if is_granted('ROLE_ADMIN') %}
+            <div class="courseCreatingBlock">
+                <i>Вы также можете</i><a href={{  path("course") }}> создать курс</a>
+            </div>
+        {% endif %}
     </div>
-    <script>
-        function save_user(){
-            let user_id = document.getElementsByName('user_id')[0];
-            let user_email = document.getElementsByName('user_email')[0];
-            let user_name = document.getElementsByName('user_name')[0];
-            let user_gender = document.getElementsByName('user_gender')[0];
-            let user_birthDate = document.getElementsByName('user_birthDate')[0];
-            let user_phone = document.getElementsByName('user_phone')[0];
-            let user_country = document.getElementsByName('user_country')[0];
-            let user_city = document.getElementsByName('user_city')[0];
-
-            $.ajax({
-                type: "POST",
-                url: "{{ path('user_update') }}",
-                data: {
-                    user_id: user_id,
-                    user_email: user_email,
-                    user_name: user_name,
-                    user_gender: user_gender,
-                    user_birthDate: user_birthDate,
-                    user_phone: user_phone,
-                    user_country: user_country,
-                    user_city: user_city,
-                },
-                success: function(response){
-
-                }
-            });
-        }
-    </script>
 {% endblock %}

@@ -1,0 +1,8 @@
+.textarea{
+    height: 155px !important;
+    resize: none;
+}
+
+.form_input{
+    margin-bottom: 20px;
+}

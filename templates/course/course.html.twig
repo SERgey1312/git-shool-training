@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Course Creating!{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/courseCreating.css') }}">
+{% endblock %}
+
+{% block content %}
+    <h2>Создание своего курса</h2>
+    <form action="{{ path('course_creating') }}" method="post" class="mx-4 my-2">
+        <input type="hidden" name="user_id" value="{{ user.id }}">
+        <div class="form_input">
+            <label>Название: </label>
+            <input type="text" class="form-control" name="course_name">
+        </div>
+        <div class="form_input">
+            <label>Тематика: </label>
+            <input type="text" class="form-control" name="course_theme">
+        </div>
+        <div class="form_input">
+            <label>Описание: </label>
+            <textarea class="form-control textarea" name="course_desc"></textarea>
+        </div>
+        <div class="form_input">
+            <label>Фото (ссылка): </label>
+            <input type="text" class="form-control" name="course_photo">
+        </div>
+        <div class="form_input">
+            <label>Число уроков: </label>
+            <input type="text" class="form-control" name="course_lessons">
+        </div>
+        <div class="form_input">
+            <button class="btn btn-primary" type="submit">Сохранить</button>
+        </div>
+    </form>
+{% endblock %}
