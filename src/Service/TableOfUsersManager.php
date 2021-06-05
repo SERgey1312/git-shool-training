@@ -33,6 +33,7 @@ class TableOfUsersManager extends AbstractController
         }
         return $queryBuilder;
     }
+
     public function queryName(QueryBuilder $queryBuilder):QueryBuilder
     {
         if(strlen($this->userName) > 0){
@@ -43,6 +44,7 @@ class TableOfUsersManager extends AbstractController
         }
         return $queryBuilder;
     }
+
     public function queryPhone(QueryBuilder $queryBuilder):QueryBuilder
     {
         if(strlen($this->phone) > 0){

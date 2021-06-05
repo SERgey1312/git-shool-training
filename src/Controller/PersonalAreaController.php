@@ -2,10 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Course;
 use App\Repository\UserRepository;
+use App\Service\TableOfCourseManager;
 use App\Service\TableOfUsersManager;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,13 +20,25 @@ class PersonalAreaController extends AbstractController
     /**
      * @Route("/personal/area", name="personal_area")
      */
-    public function index(): Response
+    public function index(Request $request,
+                          EntityManagerInterface $em,
+                          PaginatorInterface $paginator,
+                          TableOfCourseManager $courseTable): Response
     {
         $user = $this->getUser();
+        $userCourse = $user->getSubCourse();
+        $result = [];
+        foreach ($userCourse as $value){
+            $course = $this->getDoctrine()
+                ->getRepository(Course::class)
+                ->find($value);
+            array_push($result, $course);
+        }
 
         return $this->render('personal_area/personalArea.html.twig', [
             'controller_name' => 'PersonalAreaController',
             'user' => $user,
+            'course' => $result,
         ]);
     }
 

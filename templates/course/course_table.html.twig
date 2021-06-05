@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Course!{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/course_table.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/users_table.css') }}">
+{% endblock %}
+
+{% block content %}
+    {% set course = pagination %}
+    <h2>Существующие курсы</h2>
+    <hr>
+    <div class="row">
+        <div class="col-8 filters" style="margin: 0 auto">
+            <form class="mx-4 my-2"  method="get">
+                <input placeholder="Name" type="text" name="name" class="form-control">
+                <input placeholder={{ 'Theme' }} type="text" name="theme" class="form-control">
+                <button class="btn btn-primary" type="submit">{{ 'Filter' }}</button>
+            </form>
+        </div>
+    </div>
+    <hr>
+    {% for oneCourse in course %}
+        <div class="course_container">
+            <div class="one_course_container">
+                <div class="right_part">
+                    <div class="info_container">
+                        <div class="name_container">
+                            <h3>{{ oneCourse.name }} <i class="lesson_count">{{ oneCourse.lessonCount }} уроков</i></h3>
+                        </div>
+                        <div class="description_container">
+                            {{ oneCourse.description }}
+                        </div>
+                    </div>
+                </div>
+                <div class="left_part">
+                    <div class="img_container">
+                        <img class="course_img" src={{ oneCourse.photoLink }} alt="sorry" height="300">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="btn_container">
+
+            {% if is_granted('ROLE_USER') %}
+                <form action="{{ path('course_sub') }}" method="post">
+                    <button class="btn btn-primary btn_follow" type="submit" name="btn_open" value="{{ oneCourse.id }}">Подписаться</button>
+                </form>
+            {% endif %}
+
+            {% if is_granted('ROLE_ADMIN') %}
+                <form action="{{ path('course_open_page') }}" method="post">
+                    <button class="btn btn-primary btn_follow" type="submit" name="btn_open" value="{{ oneCourse.id }}">Открыть</button>
+                </form>
+                <form action="{{ path('course_update_page') }}" method="post">
+                    <button class="btn btn-primary btn_change" type="submit" name="btn_change" value="{{ oneCourse.id }}">Изменить</button>
+                </form>
+            {% endif %}
+        </div>
+        <hr>
+    {% endfor %}
+{% endblock %}

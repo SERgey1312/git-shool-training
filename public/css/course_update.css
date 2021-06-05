@@ -1,0 +1,59 @@
+.textarea{
+    height: 155px !important;
+    resize: none;
+}
+
+.form_input{
+    margin-bottom: 20px;
+}
+
+.lesson_container{
+    display: flex;
+    flex-direction: row;
+    width:100%;
+    align-items:center;
+    margin: 15px auto;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    transition: 0.2s;
+    background: #f0f1ff;
+    border: none;
+}
+
+.lesson_container:hover{
+    transform: scale(1.03);
+}
+
+.lesson_img{
+    display: block;
+}
+
+.info_container{
+    width:100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.name_container{
+    padding-top: 10px;
+}
+
+.description_container{
+    text-align: left;
+    padding: 5px 10px 10px 20px;
+}
+
+.btn_lesson_create{
+    color: #fff;
+    background-color: #007bff;
+    font-weight: 400;
+    border: 1px solid #007bff;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.btn_lesson_create:hover{
+
+}

@@ -32,6 +32,9 @@
                     <li class="nav-item">
                         <a class="nav-item nav-link" href="/">{{ 'Главная' }} <span class="sr-only">(current)</span></a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-item nav-link" href="{{ path('course_table') }}">{{ 'Поиск курсов' }} <span class="sr-only">(current)</span></a>
+                    </li>
                     {% if is_granted('ROLE_USER') %}
                     <li class="nav-item">
                         <a class="nav-item nav-link" href="{{ path('personal_area') }}">{{ 'Личный кабинет' }} <span class="sr-only">(current)</span></a>
@@ -44,7 +47,7 @@
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                 <a class="dropdown-item" href="{{ path('users_table') }}">Users</a>
-                                {#<a class="dropdown-item" href="{{ path('quiz_page') }}">Quizzes</a>#}
+                                <a class="dropdown-item" href="{{ path('course_table') }}">Course</a>
                                 {#<a class="dropdown-item" href="{{ path('question_page') }}">Questions</a>#}
                             </div>
                         </li>

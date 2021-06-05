@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Подтверждение регистрации!</title>
+</head>
+<body>
+<div class="container">
+    {% set url = path('email_confirm_sub', {'id': user.id }) %}
+    <p>Добро пожаловать, {{ user.username }}!</p>
+    <p>Вы подписались на курс, {{ course.name }}!</p>
+    <p>
+        {{ course.description }}
+    </p>
+    <p>Чтобы оформить подписку, подтвердите действие, перейдя по ссылке: <a href="{{ 'https://127.0.0.1:8000' ~ url }}">{{ '127.0.0.1:8000' ~ url }}</a></p>
+</div>
+</body>
+</html>

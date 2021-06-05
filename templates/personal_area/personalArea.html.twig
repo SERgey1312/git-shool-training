@@ -3,6 +3,8 @@
 {% block title %}GitSchool:Training{% endblock %}
 {% block stylesheets %}
     <link rel="stylesheet" type="text/css" href="{{ asset('css/personalArea.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/course_table.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/users_table.css') }}">
 {% endblock %}
 {% block content %}
     <div class="container">
@@ -45,13 +47,53 @@
                     </select>
                     <label>Город: </label>
                     <input class="form-control" type="text" name="user_city" value="{{ user.city }}">
+                    <label>Роль: </label>
+                    <div>
+                        <div><b>Пользователь.</b></div>
+                        <div>
+                            <i>Вы также можете получить</i> <a href="/"> права администратора</a>
+                        </div>
+                    </div>
+
                 </div>
             </div>
             <button class="btn btn-primary" type="submit" onclick="save_user()">Сохранить</button>
         </form>
         <h2>Мои подписки:</h2>
-        <h2>Мои курсы:</h2>
+        {% for oneCourse in course %}
+            <div class="course_container">
+                <div class="one_course_container">
+                    <div class="right_part">
+                        <div class="info_container">
+                            <div class="name_container">
+                                <h3>{{ oneCourse.name }} <i class="lesson_count">{{ oneCourse.lessonCount }} уроков</i></h3>
+                            </div>
+                            <div class="description_container">
+                                {{ oneCourse.description }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="left_part">
+                        <div class="img_container">
+                            <img class="course_img" src={{ oneCourse.photoLink }} alt="sorry" height="300">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="btn_container">
+                <form action="{{ path('course_open_page') }}" method="post">
+                    <button class="btn btn-primary btn_follow" type="submit" name="btn_open" value="{{ oneCourse.id }}">Открыть</button>
+                </form>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <form action="{{ path('course_update_page') }}" method="post">
+                        <button class="btn btn-primary btn_change" type="submit" name="btn_change" value="{{ oneCourse.id }}">Изменить</button>
+                    </form>
+                {% endif %}
+            </div>
+            <hr>
+        {% endfor %}
         {% if is_granted('ROLE_ADMIN') %}
+            <h2>Мои курсы:</h2>
             <div class="courseCreatingBlock">
                 <i>Вы также можете</i><a href={{  path("course") }}> создать курс</a>
             </div>

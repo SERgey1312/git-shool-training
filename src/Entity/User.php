@@ -16,6 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class User implements UserInterface
 {
+    public const ROLE_USER = 'ROLE_USER';
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -91,9 +92,24 @@ class User implements UserInterface
      */
     private $dob;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $confirmationCode;
+
+    /**
+     * @ORM\Column(type="json")
+     */
+    private $subCourse = [];
+
+
     public function __construct()
     {
         $this->courses = new ArrayCollection();
+        $this->roles = [self::ROLE_USER];
+        $this->isVerified = false;
     }
 
     public function getId(): ?int
@@ -314,6 +330,65 @@ class User implements UserInterface
         $this->dob = $dob;
 
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getConfirmationCode(): string
+    {
+        return $this->confirmationCode;
+    }
+
+    /**
+     * @param string $confirmationCode
+     *
+     * @return User
+     */
+    public function setConfirmationCode(string $confirmationCode): self
+    {
+        $this->confirmationCode = $confirmationCode;
+
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getSubCourse(): array
+    {
+        if($this->subCourse != null){
+            return $this->subCourse;
+        } else {
+            return [];
+        }
+    }
+
+    /**
+     * @param array $subCourse
+     */
+    public function setSubCourse(array $subCourse): void
+    {
+        $this->subCourse = $subCourse;
+    }
+
+    /**
+     * @param array $subCourse
+     */
+    public function addSubCourse(int $a): void
+    {
+        $course = $this->subCourse;
+        if ($course == null){
+            $this->subCourse = [];
+            $course = [];
+        }
+        foreach ($course as $value) {
+            if ($value == $a){
+                return;
+            }
+        }
+        array_push($this->subCourse, $a);
+
     }
 
 }

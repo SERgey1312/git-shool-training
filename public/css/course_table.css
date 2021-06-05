@@ -1,0 +1,56 @@
+.course_container{
+    display: flex;
+    flex-direction: column;
+}
+
+.one_course_container{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin: 0 auto;
+    align-items: center;
+}
+
+.right_part{
+    width: 50%;
+}
+
+.info_container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.lesson_count{
+    font-size: 14px;
+    font-weight: normal;
+}
+
+.description_container{
+    text-align: justify;
+}
+
+.left_part{
+    width: 45%;
+    margin: 0 auto;
+}
+
+.img_container{
+    width: 100%;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+}
+
+.course_img{
+    width: 100%;
+    display: block;
+}
+
+.btn_container{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.btn_follow, .btn_change{
+    margin-right: 15px;
+}

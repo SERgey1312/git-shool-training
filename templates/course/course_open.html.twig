@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Update Course!{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/course_update.css') }}">
+{% endblock %}
+
+{% block content %}
+    {% if course is null %}
+        <div>
+            Не нужно было переходить сюда через адресную строку!
+        </div>
+    {% else %}
+        <h2>Курс "{{ course.name }}"</h2>
+        <h5>Тема: {{ course.theme }}</h5>
+        <div> {{ course.description }}</div>
+
+        <hr>
+        <h2 class="lesson_title">Уроки данного видеокурса:</h2>
+        {% for oneLesson in course.lessons %}
+            <form action="{{ path('lesson_open') }}" method="post">
+                <button class="lesson_container" type="submit" value="{{ oneLesson.id }}" name="lesson_id">
+                    <img class="lesson_img" src="{{ course.photoLink }}" alt="sorry" width="190" height="140">
+                    <div class="info_container">
+                        <div class="name_container">
+                            <h5>{{ oneLesson.name }}</h5>
+                        </div>
+                        <div class="description_container">
+                            <i>{{ oneLesson.description }}</i>
+                        </div>
+                    </div>
+                </button>
+            </form>
+        {% endfor %}
+        <div>
+            {% if is_granted('ROLE_ADMIN') %}
+                <form action="{{ path('lesson_form') }}" method="post">
+                    <i>Вы также можете <button type="submit" value="{{ course.id }}" name="course_id" class="btn_lesson_create">создать (добавить) урок</button> к этому курсу</i>
+                </form>
+            {% endif %}
+        </div>
+        <hr>
+    {% endif %}
+
+{% endblock %}

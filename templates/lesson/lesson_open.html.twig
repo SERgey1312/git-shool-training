@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Lesson!{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/lesson_form.css') }}">
+{% endblock %}
+
+{% block content %}
+    {% set link = 'uploads/video/' ~ lesson.videoLink %}
+    <h2>{{ lesson.name }}</h2>
+    <h5>{{ lesson.description }}</h5>
+    <video src="{{ asset(link) }}" controls width="850"></video>
+    {% if is_granted('ROLE_ADMIN') %}
+        <form>
+            <i>Вы также можете</i>
+            <button type="submit" value="{{ lesson.id }}" name="lesson_id" class="btn_lesson_update">редактировать этот урок</button>
+        </form>
+    {% endif %}
+{% endblock %}
