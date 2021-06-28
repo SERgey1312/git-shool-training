@@ -70,7 +70,7 @@ class LessonController extends AbstractController
 
 
     /**
-     * @Route("/admin/lesson/open", name="lesson_open")
+     * @Route("/lesson/open", name="lesson_open")
      */
     public function openLesson(Request $request,
                                SluggerInterface $slugger,
